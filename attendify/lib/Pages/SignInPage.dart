@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:attendify/Routes/AppRoutes.dart'; // Make sure the path is correct
 
-class LandingPage extends StatefulWidget {
+
+class SignInPage extends StatefulWidget {
   @override
-  _LandingPageState createState() => _LandingPageState();
+  _SignInPageState createState() => _SignInPageState();
 }
 
-class _LandingPageState extends State<LandingPage> {
+class _SignInPageState extends State<SignInPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _isEmailFieldFocused = false;
@@ -211,7 +213,7 @@ class _LandingPageState extends State<LandingPage> {
 
                   GestureDetector(
                     onTap: () {
-                      // Handle JUMP IN action
+                    Navigator.pushNamed(context, AppRoutes.TeachersLanding);
                     },
                     child: Text(
                       'JUMP IN',
