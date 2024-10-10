@@ -11,56 +11,45 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
 
   // Sample rooms for testing
   final List<Map<String, String>> _rooms = [
-    {
-      'title': 'Web Development',
-      'instructor': 'Christina Calva',
-      'semester': '1st sem',
-    },
-    {
-      'title': 'Simplified Mandarin',
-      'instructor': 'Adriana Nantes',
-      'semester': '1st sem',
-    },
-    {
-      'title': 'Data Analytics',
-      'instructor': 'Jorhen Nacasabog',
-      'semester': '1st sem',
-    },
-    {
-      'title': 'Globalization and Economics',
-      'instructor': 'Haize Hidalgo',
-      'semester': '1st sem',
-    },
+    {'title': 'Web Development', 'instructor': 'Christina Calva', 'semester': '1st sem'},
+    {'title': 'Simplified Mandarin', 'instructor': 'Adriana Nantes', 'semester': '1st sem'},
+    {'title': 'Data Analytics', 'instructor': 'Jorhen Nacasabog', 'semester': '1st sem'},
+    {'title': 'Globalization and Economics', 'instructor': 'Haize Hidalgo', 'semester': '1st sem'},
   ];
 
   // Helper method to get initials for the picture placeholder
   String _getInitials(String title) {
     List<String> words = title.split(' ');
-    String initials = words.length > 1
-        ? '${words[0][0]}${words[1][0]}' // Get first letter of first two words
-        : title[0]; // Single word title fallback
-    return initials.toUpperCase();
+    return words.length > 1 ? '${words[0][0]}${words[1][0]}' : title[0];
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color(0xFFFFFFFF), // Set the background color
+      backgroundColor: const Color(0xFFFFFFFF),
       appBar: AppBar(
         title: Text('View Rooms', style: GoogleFonts.hankenGrotesk()),
       ),
-      body: SafeArea(
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              // Expanded scrollable content (Grid/List view)
-              _isGridView ? _buildGridView() : _buildListView(),
-
-              // Buttons at the bottom of the screen
-              _buildToggleButtons(),
-            ],
+      body: Column(
+        children: [
+          Expanded(
+            child: _buildScrollableContent(), // Moved buttons inside scrollable area
           ),
-        ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildScrollableContent() {
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 1.0, horizontal: 1.0), // Reduced horizontal padding
+            child: _isGridView ? _buildGridView() : _buildListView(),
+          ),
+          _buildToggleButtons(), // Moved toggle buttons inside scrollable area
+        ],
       ),
     );
   }
@@ -68,14 +57,14 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
   // GridView builder
   Widget _buildGridView() {
     return GridView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // Prevent nested scrolling
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10.0), // Reduced padding
+      shrinkWrap: true, // Important to prevent infinite height errors
+      physics: const NeverScrollableScrollPhysics(), // Disable GridView's own scrolling
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2, // Two cards per row
-        crossAxisSpacing: 10,
-        mainAxisSpacing: 20,
-        childAspectRatio: 10 / 15, // Adjust the card size
+        crossAxisCount: 2,
+        crossAxisSpacing: 8, // Adjusted spacing
+        mainAxisSpacing: 12, // Adjusted spacing
+        childAspectRatio: 10 / 13, // Adjusted aspect ratio to fit better
       ),
       itemCount: _rooms.length,
       itemBuilder: (context, index) {
@@ -87,9 +76,9 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
   // ListView builder
   Widget _buildListView() {
     return ListView.builder(
-      shrinkWrap: true,
-      physics: const NeverScrollableScrollPhysics(), // Prevent nested scrolling
-      padding: const EdgeInsets.all(10),
+      padding: const EdgeInsets.symmetric(vertical: 10.0), // Reduced padding
+      shrinkWrap: true, // Prevents ListView from taking infinite height
+      physics: const NeverScrollableScrollPhysics(), // Disable ListView's own scrolling
       itemCount: _rooms.length,
       itemBuilder: (context, index) {
         return _buildRoomCard(_rooms[index]);
@@ -100,16 +89,16 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
   // Widget to build the room card
   Widget _buildRoomCard(Map<String, String> room) {
     return Card(
-      elevation: 5,
+      elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(12.0), // Reduced padding for a compact card
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             CircleAvatar(
               radius: 40,
-              backgroundColor: Color(0XffD9D9D9),
+              backgroundColor: const Color(0XffD9D9D9),
               child: Text(
                 _getInitials(room['title']!),
                 style: GoogleFonts.hankenGrotesk(
@@ -119,7 +108,7 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
                 ),
               ),
             ),
-            const SizedBox(height: 10),
+            const SizedBox(height: 8),
             Text(
               room['title']!,
               style: GoogleFonts.hankenGrotesk(
@@ -128,7 +117,7 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 4),
             Text(
               room['instructor']!,
               style: GoogleFonts.hankenGrotesk(
@@ -137,7 +126,7 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
               ),
               textAlign: TextAlign.center,
             ),
-            const SizedBox(height: 5),
+            const SizedBox(height: 4),
             Text(
               room['semester']!,
               style: GoogleFonts.hankenGrotesk(
@@ -152,11 +141,11 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
     );
   }
 
-  // Toggle buttons to switch between List and Grid view
+  // Toggle buttons widget
   Widget _buildToggleButtons() {
     return Container(
-      padding: const EdgeInsets.all(16),
-      color: Colors.grey[200], // Optional background for buttons container
+      padding: const EdgeInsets.all(10), // Reduced padding
+      color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -165,7 +154,7 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
               _isGridView = false;
             });
           }),
-          const SizedBox(width: 10),
+          const SizedBox(width: 8), // Reduced spacing between buttons
           _buildToggleButton("Grid", _isGridView, () {
             setState(() {
               _isGridView = true;
@@ -176,12 +165,12 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
     );
   }
 
-  // Helper widget to create a toggle button
+  // Single button widget for toggling between List and Grid view
   Widget _buildToggleButton(String title, bool isActive, VoidCallback onPressed) {
     return TextButton(
       onPressed: onPressed,
       style: TextButton.styleFrom(
-        backgroundColor: isActive ? Colors.black : Colors.grey.shade300,
+        backgroundColor: isActive ? Colors.black : Colors.white,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
       child: Text(

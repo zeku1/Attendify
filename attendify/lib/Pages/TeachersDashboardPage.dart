@@ -1,4 +1,5 @@
 import 'package:attendify/Components/ViewRoomsComponent.dart';
+import 'package:attendify/Routes/AppRoutes.dart';
 import 'package:flutter/material.dart';
 import 'package:attendify/Components/AppBarComponent.dart'; // Import the new AppBarComponent
 import 'package:google_fonts/google_fonts.dart';
@@ -68,14 +69,56 @@ class _TeachersDashboardState extends State<TeachersDashboard> {
                 ],
               ),
             ),
-            
-     
-  Expanded(       // Display either CreateRoomComponent or ViewRoomsComponent based on the _isCreateRoomVisible flag
-  child: _isCreateRoomVisible
-  ? CreateRoomComponent()
-  : ViewRoomsComponent(),
-  ),
-            Spacer(flex: 1),
+
+            Expanded(
+              // Display either CreateRoomComponent or ViewRoomsComponent based on the _isCreateRoomVisible flag
+              child: _isCreateRoomVisible
+                  ? CreateRoomComponent()
+                  : ViewRoomsComponent(),
+            ),
+
+            // Bottom Centered Buttons
+            Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
+                  children: [
+                    GestureDetector(
+                      onTap: () {
+                        // Action for ROOM
+                      },
+                      child: Text(
+                        'ROOM,',
+                        style: GoogleFonts.hankenGrotesk(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 23,
+                          color: const Color(0xff000000),
+                          height: 32.57 / 25,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    GestureDetector(
+                      onTap: () {
+                        // Navigate to AddStudentsPage when tapped
+                        Navigator.pushNamed(context, AppRoutes.addStudents);
+                      },
+                      child: Text(
+                        'ADD STUDENTS',
+                        style: GoogleFonts.hankenGrotesk(
+                          fontWeight: FontWeight.w900,
+                          fontSize: 23,
+                          color: const Color(0xff000000),
+                          height: 32.57 / 25,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 20), // Add spacing from the bottom
+              ],
+            ),
           ],
         ),
       ),
