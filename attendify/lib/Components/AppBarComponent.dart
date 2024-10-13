@@ -26,7 +26,7 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           ),
           TextButton(
             onPressed: () {
-              // Handle teacher action
+              Navigator.pushNamed(context, AppRoutes.logout);
             },
             child: Text(
               'TEACHER',
