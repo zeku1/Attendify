@@ -27,9 +27,7 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFFFFFFF),
-      appBar: AppBar(
-        title: Text('View Rooms', style: GoogleFonts.hankenGrotesk()),
-      ),
+      appBar: AppBar(),
       body: Column(
         children: [
           Expanded(
@@ -86,56 +84,61 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
     );
   }
 
-  // Widget to build the room card
+  // Widget to build the room card with on-tap navigation
   Widget _buildRoomCard(Map<String, String> room) {
-    return Card(
-      elevation: 4,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      child: Padding(
-        padding: const EdgeInsets.all(12.0), // Reduced padding for a compact card
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 40,
-              backgroundColor: const Color(0XffD9D9D9),
-              child: Text(
-                _getInitials(room['title']!),
-                style: GoogleFonts.hankenGrotesk(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.white,
+    return GestureDetector(
+      onTap: () {
+        Navigator.pushNamed(context, '/contentClasses'); // Navigate to ContentClassesPage
+      },
+      child: Card(
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        child: Padding(
+          padding: const EdgeInsets.all(12.0), // Reduced padding for a compact card
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              CircleAvatar(
+                radius: 40,
+                backgroundColor: const Color(0XffD9D9D9),
+                child: Text(
+                  _getInitials(room['title']!),
+                  style: GoogleFonts.hankenGrotesk(
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
+                  ),
                 ),
               ),
-            ),
-            const SizedBox(height: 8),
-            Text(
-              room['title']!,
-              style: GoogleFonts.hankenGrotesk(
-                fontSize: 16,
-                fontWeight: FontWeight.bold,
+              const SizedBox(height: 8),
+              Text(
+                room['title']!,
+                style: GoogleFonts.hankenGrotesk(
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              room['instructor']!,
-              style: GoogleFonts.hankenGrotesk(
-                fontSize: 14,
-                color: Colors.grey[600],
+              const SizedBox(height: 4),
+              Text(
+                room['instructor']!,
+                style: GoogleFonts.hankenGrotesk(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-            const SizedBox(height: 4),
-            Text(
-              room['semester']!,
-              style: GoogleFonts.hankenGrotesk(
-                fontSize: 14,
-                color: Colors.grey[600],
+              const SizedBox(height: 4),
+              Text(
+                room['semester']!,
+                style: GoogleFonts.hankenGrotesk(
+                  fontSize: 14,
+                  color: Colors.grey[600],
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -144,41 +147,47 @@ class _ViewRoomsComponentState extends State<ViewRoomsComponent> {
   // Toggle buttons widget
   Widget _buildToggleButtons() {
     return Container(
-      padding: const EdgeInsets.all(10), // Reduced padding
+      padding: const EdgeInsets.all(10),
       color: Colors.white,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          _buildToggleButton("List", !_isGridView, () {
-            setState(() {
-              _isGridView = false;
-            });
-          }),
-          const SizedBox(width: 8), // Reduced spacing between buttons
-          _buildToggleButton("Grid", _isGridView, () {
-            setState(() {
-              _isGridView = true;
-            });
-          }),
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isGridView = false; // Switch to List view
+              });
+            },
+            child: Text(
+              'LIST,',
+              style: GoogleFonts.hankenGrotesk(
+                fontWeight: FontWeight.w900,
+                fontSize: 23,
+                color: _isGridView
+                    ? Colors.black.withOpacity(0.5) // Less prominent when not selected
+                    : Colors.black, // More prominent when selected
+              ),
+            ),
+          ),
+          const SizedBox(width: 8), // Spacing between buttons
+          GestureDetector(
+            onTap: () {
+              setState(() {
+                _isGridView = true; // Switch to Grid view
+              });
+            },
+            child: Text(
+              'GRID',
+              style: GoogleFonts.hankenGrotesk(
+                fontWeight: FontWeight.w900,
+                fontSize: 23,
+                color: _isGridView
+                    ? Colors.black // More prominent when selected
+                    : Colors.black.withOpacity(0.5), // Less prominent when not selected
+              ),
+            ),
+          ),
         ],
-      ),
-    );
-  }
-
-  // Single button widget for toggling between List and Grid view
-  Widget _buildToggleButton(String title, bool isActive, VoidCallback onPressed) {
-    return TextButton(
-      onPressed: onPressed,
-      style: TextButton.styleFrom(
-        backgroundColor: isActive ? Colors.black : Colors.white,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-      ),
-      child: Text(
-        title,
-        style: GoogleFonts.hankenGrotesk(
-          color: isActive ? Colors.white : Colors.black,
-          fontWeight: FontWeight.bold,
-        ),
       ),
     );
   }

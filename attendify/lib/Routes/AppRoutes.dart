@@ -1,3 +1,4 @@
+import 'package:attendify/Components/ClassDetailsComponent.dart';
 import 'package:attendify/Pages/SignInPage.dart';
 import 'package:attendify/Pages/Registration.dart';
 import 'package:attendify/Pages/TeachersDashboardPage.dart';
@@ -7,6 +8,7 @@ import 'package:attendify/Components/AddStudentsComponent.dart';
 import 'package:attendify/Pages/ContentClassesPage.dart';
 // import 'package:attendify/Pages/TeachersDashboardPage.dart';
 // import 'package:attendify/Pages/ViewRoomsPage.dart';
+import 'package:attendify/Components/ClassDetailsAlternateComponent.dart';
 
 class AppRoutes {
   static const home = '/';
@@ -16,6 +18,7 @@ class AppRoutes {
   // static const ViewRoomsPageRoute = '/ViewRoomsPage';
   static const addStudents = '/addStudents';
   static const contentClasses = '/contentClasses';
+  static const classDetailsAlt = '/classDetailsAlt';
 
   static Map<String, WidgetBuilder> getRoutes() {
     return {
@@ -26,6 +29,7 @@ class AppRoutes {
       // ViewRoomsPageRoute: (context) => ViewRoomsPage(), // Define ViewRoomsPage here
       addStudents: (context) => AddStudentsPage(),
       contentClasses: (context) => ContentClassesPage(), // Fixed the assignment here
+      classDetailsAlt: (context) => ClassDetailsAlternateComponent(),
     };
   }
 }

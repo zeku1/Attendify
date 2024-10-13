@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:attendify/Components/AppBarComponent.dart';
 import 'package:attendify/Components/ClassDetailsComponent.dart';
+import 'package:attendify/Components/ClassDetailsAlternateComponent.dart';
 
 class ContentClassesPage extends StatefulWidget {
   @override

@@ -78,47 +78,7 @@ class _TeachersDashboardState extends State<TeachersDashboard> {
             ),
 
             // Bottom Centered Buttons
-            Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center, // Center horizontally
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        // Action for ROOM
-                      },
-                      child: Text(
-                        'ROOM,',
-                        style: GoogleFonts.hankenGrotesk(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 23,
-                          color: const Color(0xff000000),
-                          height: 32.57 / 25,
-                        ),
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    GestureDetector(
-                      onTap: () {
-                        // Navigate to AddStudentsPage when tapped
-                        Navigator.pushNamed(context, AppRoutes.addStudents);
-                      },
-                      child: Text(
-                        'ADD STUDENTS',
-                        style: GoogleFonts.hankenGrotesk(
-                          fontWeight: FontWeight.w900,
-                          fontSize: 23,
-                          color: const Color(0xff000000),
-                          height: 32.57 / 25,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 20), // Add spacing from the bottom
-              ],
-            ),
+
           ],
         ),
       ),

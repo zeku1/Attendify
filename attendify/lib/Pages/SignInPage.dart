@@ -197,7 +197,7 @@ class _SignInPageState extends State<SignInPage> {
                     margin: const EdgeInsets.only(top: 280),
                     child: GestureDetector(
                       onTap: () {
-                        // Handle action for "Don't have an account yet?"
+                        Navigator.pushNamed(context, AppRoutes.registration);
                       },
                       child: Text(
                         'Don\'t have an account yet?',
