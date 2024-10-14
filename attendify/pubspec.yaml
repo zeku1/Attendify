@@ -10,10 +10,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  google_fonts: ^6.2.1  # Correctly indented
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
+  google_fonts: ^6.2.1
   cupertino_icons: ^1.0.8
   flutter_dotenv: ^5.1.0
 
@@ -21,9 +18,15 @@ dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^4.0.0
+  flutter_launcher_icons: ^0.10.0 # Moved here
 
 flutter:
   uses-material-design: true
 
   assets:
     - .env
+
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon/app_icon.png"
