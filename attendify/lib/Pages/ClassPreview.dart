@@ -13,24 +13,25 @@ import 'package:attendify/Components/CreateRoomComponent.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class ClassViewPage extends StatefulWidget {
-  final int? sessionId;
+class ClassPreview extends StatefulWidget {
   final Section? section;
 
-  const ClassViewPage({super.key, this.sessionId, this.section});
+  const ClassPreview({super.key, this.section});
 
   @override
-  _ClassViewPageState createState() => _ClassViewPageState();
+   ClassPreviewState createState() =>  ClassPreviewState();
 }
 
-class _ClassViewPageState extends State<ClassViewPage> {
+class  ClassPreviewState extends State <ClassPreview> {
   SharedPreferences? _prefs;
-  Session? session;
+  List<Session>? sessions;
   List<StudentModel>? students;
+
+  Section? section;
 
   bool _isCreateRoomVisible = false;
   bool? isActive;
-  SessionApi sessionApi = SessionApi();
+  ClassApi classApi = ClassApi();
 
   String? _role;
   String? _schoolId;
@@ -63,14 +64,13 @@ class _ClassViewPageState extends State<ClassViewPage> {
 
   // Fetch session details from API
   Future<void> _getSections() async {
-    if (_id != null && widget.sessionId != null) {
+    if (_id != null && widget.section != null) {
       try {
-        final fetchedApi = await sessionApi.getClassSession(widget.sessionId!);
-        if (fetchedApi != null) {
+        final fetchedSection = await classApi.getSection(widget.section!.id);
+        if (fetchedSection != null) {
           setState(() {
-            session = fetchedApi;
-            students = session!.students; // This can be null, too
-            isActive = fetchedApi.endTime == null;
+            section = fetchedSection;
+            sessions = fetchedSection!.sessions;
           });
         } else {
           _showErrorDialog('Failed to fetch class session.');
@@ -165,7 +165,7 @@ class _ClassViewPageState extends State<ClassViewPage> {
               ),
               Expanded(
                 child: _isCreateRoomVisible
-                    ? TeacherQrScanner(sessionId: widget.sessionId)
+                    ? Text('hi')
                     : (students != null
                     ? StudentListComponent(
                   students: students!,

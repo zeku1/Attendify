@@ -1,21 +1,26 @@
+import 'package:attendify/Components/ViewRoomsComponent.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return _homePage();
   }
-  
-  Container _homePage(){
-    return Container(
-      child: Text(
-          'hello',
-        style: TextStyle(
-          color: Colors.white
-        ),
-      ),
+
+ Scaffold _homePage(){
+    return Scaffold(
+      body: Column(
+        children: [
+          ViewRoomsComponent()
+        ],
+      )
     );
-  }
-  
+ }
+
 }

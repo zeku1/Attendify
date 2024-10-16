@@ -1,40 +1,32 @@
-import 'dart:typed_data';
 import 'package:pretty_qr_code/pretty_qr_code.dart';
 import 'package:flutter/material.dart';
 
-
 class GenerateQrComponent extends StatefulWidget {
+  final String qrData;
+  final double size;
+
+  const GenerateQrComponent({Key? key, required this.qrData, required this.size}) : super(key: key);
+
   @override
   State<GenerateQrComponent> createState() => _GenerateQrComponentState();
 }
 
 class _GenerateQrComponentState extends State<GenerateQrComponent> {
-  String? qrData;
-
   @override
   Widget build(BuildContext context) {
     return _scannerComponent();
   }
 
-  _scannerComponent(){
-    return Container(
-      padding: EdgeInsets.all(10.0),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          TextField(
-            onSubmitted: (value) {
-                setState((){
-                  qrData = value;
-                });
-            },
-          ),
-          if (qrData != null) PrettyQrView.data(data: qrData!),
-        ],
-      )
+  _scannerComponent() {
+    return SizedBox(
+      width: widget.size, // Set desired width
+      height: widget.size, // Set desired height
+      child: PrettyQr(
+        data: widget.qrData, // Access qrData through widget.qrData
+        size: widget.size, // Controls the size of the QR code
+        roundEdges: true, // Example of an additional option
+        errorCorrectLevel: QrErrorCorrectLevel.M, // Error correction level
+      ),
     );
-
   }
 }
